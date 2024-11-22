@@ -16,9 +16,10 @@ class Scrapper:
     def create_soup(self, url: str):
         user_agent = UserAgent()
         page = requests.get(
-            url, verify=False, headers={"User-Agent": user_agent.chrome}
+            url, headers={"User-Agent": user_agent.chrome}
         )
         if page.status_code == 404:
+            print("ERROR creating soup")
             return None
         soup = BeautifulSoup(page.content, "html.parser")
         return soup
@@ -64,6 +65,7 @@ class Scrapper:
                 news_list.append(news.to_dict())
 
         news_df = pd.DataFrame(news_list)
+
         return news_df
 
     def get_under_posts(self):
