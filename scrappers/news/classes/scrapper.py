@@ -4,7 +4,7 @@ import pandas as pd
 from bs4 import BeautifulSoup
 from fake_useragent import UserAgent
 
-from .classes.news import News
+from scrappers.news.classes.news import News
 
 
 class Scrapper:
@@ -15,9 +15,7 @@ class Scrapper:
 
     def create_soup(self, url: str):
         user_agent = UserAgent()
-        page = requests.get(
-            url, headers={"User-Agent": user_agent.chrome}
-        )
+        page = requests.get(url, headers={"User-Agent": user_agent.chrome})
         if page.status_code == 404:
             print("ERROR creating soup")
             return None
